@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MedicationLogTableViewCell: UITableViewCell {
+class LogTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -1,5 +1,5 @@
 //
-//  MedicationDetailsViewController.swift
+//  AddNewMecationViewController.swift
 //  Medication Reminder & Tracker
 //
 //  Created by Rob Vance on 2/26/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MedicationDetailsViewController: UIViewController {
+class AddMedicationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
