@@ -1,5 +1,5 @@
 //
-//  AddNewMecationViewController.swift
+//  SettingsViewController.swift
 //  Medication Reminder & Tracker
 //
 //  Created by Rob Vance on 2/26/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddNewMecationViewController: UIViewController {
+class ThemesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
