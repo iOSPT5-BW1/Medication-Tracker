@@ -94,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="umK-qz-IQx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2529" y="-512"/>
+            <point key="canvasLocation" x="2087" y="-685"/>
         </scene>
         <!--Add New Medication-->
         <scene sceneID="p1H-EX-iJu">
@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5Y-Cc-DJm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3268" y="-222"/>
+            <point key="canvasLocation" x="2828" y="-685"/>
         </scene>
         <!--Medication Details-->
         <scene sceneID="ERj-42-Nsv">
@@ -230,7 +230,7 @@
                                     <constraint firstAttribute="height" constant="300" id="e5z-fJ-52a"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LogCell" textLabel="8e6-Ba-zua" detailTextLabel="k7C-Bo-fP6" rowHeight="49" style="IBUITableViewCellStyleValue1" id="d8Z-sg-dEp" customClass="LogTableViewCell" customModule="Medication_Reminder___Tracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LogCell" textLabel="8e6-Ba-zua" rowHeight="49" style="IBUITableViewCellStyleDefault" id="d8Z-sg-dEp" customClass="LogTableViewCell" customModule="Medication_Reminder___Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d8Z-sg-dEp" id="hJ4-ZF-Enr">
@@ -238,14 +238,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8e6-Ba-zua">
-                                                    <rect key="frame" x="20" y="15" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="k7C-Bo-fP6">
-                                                    <rect key="frame" x="350" y="15" width="44" height="20.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -254,7 +247,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="detailLabel" destination="k7C-Bo-fP6" id="SXx-eJ-txw"/>
                                             <outlet property="titleLabel" destination="8e6-Ba-zua" id="W6x-K7-1PC"/>
                                         </connections>
                                     </tableViewCell>
@@ -293,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gw2-jD-E7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2689.8550724637685" y="411.83035714285711"/>
+            <point key="canvasLocation" x="2719" y="144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oQi-PS-ow9">
@@ -311,7 +303,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NPf-RL-gVP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823.1884057971015" y="143.97321428571428"/>
+            <point key="canvasLocation" x="972" y="144"/>
         </scene>
     </scenes>
     <resources>

@@ -8,8 +8,12 @@
 
 import UIKit
 
-class AddMedicationViewController: UIViewController {
+protocol MedecationDelegate {
+    func medicationWasAdded(medication: Medication)
+}
 
+class AddMedicationViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,5 +30,7 @@ class AddMedicationViewController: UIViewController {
         
     }
     
-
-}
+    //MARK: -Important properties-
+    var delegate: MedecationDelegate?
+    
+} //End of class

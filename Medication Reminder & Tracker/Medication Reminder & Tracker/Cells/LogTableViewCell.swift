@@ -13,7 +13,5 @@ class LogTableViewCell: UITableViewCell {
     //MARK: -IBOutlets-
     
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var detailLabel: UILabel!
     
-
 }
