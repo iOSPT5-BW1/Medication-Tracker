@@ -12,19 +12,19 @@ class AddMedicationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: -IBOutlets and IBActions-
+    
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var numberOfDosesTextField: UITextField!
+    @IBOutlet var notesTextView: UITextView!
+    @IBOutlet var errorLabel: UILabel!
+    
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        
     }
-    */
+    
 
 }

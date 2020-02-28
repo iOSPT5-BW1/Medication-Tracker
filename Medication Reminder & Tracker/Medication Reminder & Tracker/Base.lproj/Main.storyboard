@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MedCell" textLabel="dRD-jL-ZJz" detailTextLabel="dGD-c6-oDb" rowHeight="64" style="IBUITableViewCellStyleValue1" id="uNn-eG-m7v">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MedCell" textLabel="dRD-jL-ZJz" detailTextLabel="dGD-c6-oDb" rowHeight="64" style="IBUITableViewCellStyleValue1" id="uNn-eG-m7v" customClass="MedicationTableViewCell" customModule="Medication_Reminder___Tracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNn-eG-m7v" id="2FK-wk-B5d">
@@ -40,6 +40,8 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="numberOfDosesLabel" destination="dGD-c6-oDb" id="8Jy-5A-Qda"/>
+                                    <outlet property="titleLabel" destination="dRD-jL-ZJz" id="uGt-vu-g2a"/>
                                     <segue destination="yRn-PG-0pN" kind="show" identifier="MedDetailSegue" id="OkT-dI-iRA"/>
                                 </connections>
                             </tableViewCell>
@@ -154,8 +156,18 @@
                         <viewLayoutGuide key="safeArea" id="a8O-Mr-dcj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Medication" id="H6n-s3-uOs">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="hpo-Lm-zgr"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="hpo-Lm-zgr">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="O40-BC-ZxP" id="QX5-M1-UB0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="errorLabel" destination="sSt-0U-0e0" id="maR-yP-DOc"/>
+                        <outlet property="nameTextField" destination="e6g-2h-yVu" id="uUy-vf-W9g"/>
+                        <outlet property="notesTextView" destination="4h3-1M-IMr" id="HmN-oV-1TB"/>
+                        <outlet property="numberOfDosesTextField" destination="vHk-Mf-UdX" id="dIh-G7-soS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5Y-Cc-DJm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -180,16 +192,16 @@
                                 <rect key="frame" x="0.0" y="170" width="414" height="85"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="zjA-hb-9L8">
-                                        <rect key="frame" x="38.5" y="0.0" width="337" height="30"/>
+                                        <rect key="frame" x="36" y="0.0" width="342.5" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doses remaining for today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNk-99-BQY">
-                                                <rect key="frame" x="0.0" y="0.0" width="226.5" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doses remaining for today:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNk-99-BQY">
+                                                <rect key="frame" x="0.0" y="0.0" width="232" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oF7-1y-cas">
-                                                <rect key="frame" x="266.5" y="0.0" width="70.5" height="30"/>
+                                                <rect key="frame" x="272" y="0.0" width="70.5" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -199,6 +211,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oK9-td-1EO">
                                         <rect key="frame" x="141" y="55" width="132" height="30"/>
                                         <state key="normal" title="I have taken a dose"/>
+                                        <connections>
+                                            <action selector="addDoseButtonTapped:" destination="yRn-PG-0pN" eventType="touchUpInside" id="3rz-g2-xke"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -238,6 +253,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailLabel" destination="k7C-Bo-fP6" id="SXx-eJ-txw"/>
+                                            <outlet property="titleLabel" destination="8e6-Ba-zua" id="W6x-K7-1PC"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -260,8 +279,17 @@
                         <viewLayoutGuide key="safeArea" id="JAz-eY-IE6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Medication Details" id="aJt-MB-bqb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="RNr-sC-bcl"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="RNr-sC-bcl">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="yRn-PG-0pN" id="Pe4-An-nZL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dosesCounterLabel" destination="oF7-1y-cas" id="7Ln-Je-Oka"/>
+                        <outlet property="notesTextView" destination="X3O-6J-t9N" id="1hN-XC-6LE"/>
+                        <outlet property="tableView" destination="BYW-5H-MUU" id="nwF-pf-3Z8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gw2-jD-E7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
