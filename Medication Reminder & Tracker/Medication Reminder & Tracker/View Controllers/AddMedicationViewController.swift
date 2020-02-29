@@ -1,5 +1,5 @@
 //
-//  AddNewMecationViewController.swift
+//  AddMedicationViewController.swift
 //  Medication Reminder & Tracker
 //
 //  Created by Rob Vance on 2/26/20.
