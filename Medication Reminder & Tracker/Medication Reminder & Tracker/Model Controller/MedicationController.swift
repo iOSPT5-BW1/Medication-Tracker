@@ -71,4 +71,4 @@ class MedicationController {
     }
     // MARK: -End of section-
     
-}
+} //End of class

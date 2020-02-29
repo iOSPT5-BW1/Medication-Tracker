@@ -13,5 +13,6 @@ struct Medication: Codable, Equatable {
     var numberOfDoses: Int
     var notes: String?
     var log: [Date]?
-}
+    
+} //End of class
 
