@@ -16,4 +16,19 @@ class MedicationTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var numberOfDosesLabel: UILabel!
     
-}
+    //MARK: -Important properties-
+    
+    var medication: Medication? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    //MARK: -UpdateViews-
+    
+    func updateViews() {
+        titleLabel.text = medication?.name
+        numberOfDosesLabel.text = "\(String(describing: medication?.numberOfDoses))"
+    }
+    
+} //End of class

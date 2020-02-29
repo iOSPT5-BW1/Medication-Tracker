@@ -29,4 +29,14 @@ class MedicationsDetailViewController: UIViewController {
         
     }
     
-}
+    
+    //MARK: -Important properties-
+    
+    var medicationController: MedicationController?
+    var medication: Medication?
+    
+    //MARK: -Important Methods-
+    
+    
+    
+} //End of class
