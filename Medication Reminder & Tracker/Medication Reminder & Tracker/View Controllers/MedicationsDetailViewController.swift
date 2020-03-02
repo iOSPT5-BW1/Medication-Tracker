@@ -19,15 +19,28 @@ class MedicationsDetailViewController: UIViewController {
     //MARK: -IBOutlets and IBActions-
     
     @IBOutlet var notesLabel: UILabel!
-    @IBOutlet var tableView: LogTableView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var dosesCounterLabel: UILabel!
     @IBOutlet var notesTextView: UITextView!
     
-    @IBAction func addDoseButtonTapped(_ sender: UIButton) {
+    @IBAction func subtractButtonTapped(_ sender: UIButton) {
         guard var dosesInt = Int(medication!.numberOfDoses),
-        dosesInt >= 0 else {return}
+            dosesInt != 0 else {return}
         dosesInt -= 1
+        medication?.numberOfDoses = String(dosesInt)
         dosesCounterLabel.text = String(dosesInt)
+        medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
+        medicationController?.medications[cellIndex!.row].log?.append(Date())
+        medicationController?.saveToPersistentStore()
+    }
+    
+    @IBAction func addButtonTapped(_ sender: UIButton) {
+        guard var dosesInt = Int(medication!.numberOfDoses) else {return}
+        dosesInt += 1
+        medication?.numberOfDoses = String(dosesInt)
+        dosesCounterLabel.text = String(dosesInt)
+        medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
+        medicationController?.medications[cellIndex!.row].log?.append(Date())
         medicationController?.saveToPersistentStore()
     }
     
@@ -39,6 +52,7 @@ class MedicationsDetailViewController: UIViewController {
                 return
         }
         medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: numberOfDoses, notes: notes)
+        medicationController?.saveToPersistentStore()
         if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
         }
@@ -46,20 +60,27 @@ class MedicationsDetailViewController: UIViewController {
     } // End of actions when the Save button is tapped
     
     
-    
     //MARK: -Important properties-
     
     var medicationController: MedicationController?
     var medication: Medication?
+    var cellIndex: IndexPath?
     
     
     //MARK: -Important Methods-
     
     func updateViews() {
-        notesLabel.text = medication?.notes
+        notesTextView.text = medication?.notes
         dosesCounterLabel.text = medication?.numberOfDoses
         title = medication?.name
+        // TableViewSetup
+        tableView.numberOfRows(inSection: (medication?.log!.count)!)
+        tableView.dequeueReusableCell(withIdentifier: "LogCell")
+        
+        //TableViewSetup
         tableView.reloadData()
     }
+    
+    
     
 } //End of class

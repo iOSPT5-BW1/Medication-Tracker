@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7B591131240782F1004E4B59 /* MedicationListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B591130240782F1004E4B59 /* MedicationListTableViewController.swift */; };
-		7B59113524078366004E4B59 /* LogTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59113424078366004E4B59 /* LogTableView.swift */; };
 		7B59113724078411004E4B59 /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59113624078411004E4B59 /* Medication.swift */; };
 		7B59113924078461004E4B59 /* MedicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59113824078461004E4B59 /* MedicationController.swift */; };
 		7B59113B2408AECB004E4B59 /* MedicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B59113A2408AECB004E4B59 /* MedicationTableViewCell.swift */; };
@@ -26,7 +25,6 @@
 
 /* Begin PBXFileReference section */
 		7B591130240782F1004E4B59 /* MedicationListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationListTableViewController.swift; sourceTree = "<group>"; };
-		7B59113424078366004E4B59 /* LogTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableView.swift; sourceTree = "<group>"; };
 		7B59113624078411004E4B59 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		7B59113824078461004E4B59 /* MedicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationController.swift; sourceTree = "<group>"; };
 		7B59113A2408AECB004E4B59 /* MedicationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTableViewCell.swift; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 		7B59112E24078134004E4B59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7B59113424078366004E4B59 /* LogTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -107,8 +104,8 @@
 		E402E9082407611400C8C567 /* Medication Reminder & Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				E402E91D24076A5B00C8C567 /* Resources */,
 				E402E9072407611400C8C567 /* Products */,
+				E402E91D24076A5B00C8C567 /* Resources */,
 				7B59112C24078126004E4B59 /* Model */,
 				7B59112D2407812E004E4B59 /* Model Controller */,
 				7B59112F2407813A004E4B59 /* Cells */,
@@ -216,7 +213,6 @@
 			files = (
 				E402E92624076C9A00C8C567 /* LogTableViewCell.swift in Sources */,
 				7B591131240782F1004E4B59 /* MedicationListTableViewController.swift in Sources */,
-				7B59113524078366004E4B59 /* LogTableView.swift in Sources */,
 				E402E90A2407611400C8C567 /* AppDelegate.swift in Sources */,
 				E402E90C2407611400C8C567 /* SceneDelegate.swift in Sources */,
 				E402E91F24076AF800C8C567 /* MedicationsDetailViewController.swift in Sources */,

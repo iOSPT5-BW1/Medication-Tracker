@@ -10,8 +10,9 @@ import UIKit
 
 class MedicationListTableViewController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     //MARK: -Important properties-
@@ -37,8 +38,10 @@ class MedicationListTableViewController: UITableViewController {
             addMedVC.medicationController = medicationController
         } else if segue.identifier == "MedDetailSegue" {
             let medDetailVC = segue.destination as! MedicationsDetailViewController
+            let cellIndex = tableView.indexPathForSelectedRow
             medDetailVC.medicationController = medicationController
             medDetailVC.medication = medicationController.medications[tableView.indexPathForSelectedRow!.row]
+            medDetailVC.cellIndex = cellIndex
         }
     }
     
