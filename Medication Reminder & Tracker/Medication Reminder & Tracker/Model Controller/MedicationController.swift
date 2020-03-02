@@ -12,12 +12,13 @@ class MedicationController {
     
     var medications: [Medication] = []
     
-    func createMedication(name: String, numberOfDoses: Int, notes: String) {
-        medications.append(Medication(name: name, numberOfDoses: numberOfDoses, notes: notes))
+    func createMedication(name: String, numberOfDoses: String, notes: String) {
+        let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [])
+        medications.append(newMedication)
         saveToPersistentStore()
     }
     
-    func updateMedication(medication: Medication, name: String, numberOfDoses: Int, notes: String) {
+    func updateMedication(medication: Medication, name: String, numberOfDoses: String, notes: String) {
         guard let index = medications.firstIndex(of: medication) else {return}
         var medCopy = medication
         medCopy.name = name
@@ -37,7 +38,7 @@ class MedicationController {
     
     //MARK: -Encoding and Decoding Section-
     
-    var medicationList: URL? {
+    var medicationListURL: URL? {
         let fileManager = FileManager.default
         guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {return nil}
         return documents.appendingPathComponent("MedicationList.plist")
@@ -45,7 +46,7 @@ class MedicationController {
     
     func saveToPersistentStore() {
         let encoder = PropertyListEncoder()
-        guard let url = medicationList else {return}
+        guard let url = medicationListURL else {return}
         do {
             let data = try encoder.encode(medications)
             try data.write(to: url)
@@ -55,7 +56,7 @@ class MedicationController {
     }
     
     func loadFromPersistentStore() {
-        guard let url = medicationList else {return}
+        guard let url = medicationListURL else {return}
         do {
             let decoder = PropertyListDecoder()
             let data = try Data(contentsOf: url)

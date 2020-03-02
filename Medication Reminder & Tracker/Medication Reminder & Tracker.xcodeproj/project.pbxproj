@@ -82,8 +82,8 @@
 		7B59112F2407813A004E4B59 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E402E92524076C9A00C8C567 /* LogTableViewCell.swift */,
 				7B59113A2408AECB004E4B59 /* MedicationTableViewCell.swift */,
+				E402E92524076C9A00C8C567 /* LogTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
