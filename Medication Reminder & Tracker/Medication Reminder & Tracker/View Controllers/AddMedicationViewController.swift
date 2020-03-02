@@ -1,5 +1,5 @@
 //
-//  AddNewMecationViewController.swift
+//  AddMedicationViewController.swift
 //  Medication Reminder & Tracker
 //
 //  Created by Rob Vance on 2/26/20.
@@ -20,6 +20,7 @@ class AddMedicationViewController: UIViewController {
     }
     var medicationController: MedicationController?
     var medications: Medication?
+    
     //MARK: -IBOutlets and IBActions-
     
     @IBOutlet var nameTextField: UITextField!
@@ -40,6 +41,8 @@ class AddMedicationViewController: UIViewController {
         if let medications = medications {
             medicationController?.updateMedication(medication: medications, name: name, numberOfDoses: medDoses, notes: notes)
         } else {
+            // having issue with numberOfDoses of type int in a type string area
+            
             medicationController?.createMedication(name: name, numberOfDoses: medDoses, notes: notes)
         }
         if let parent = navigationController?.viewControllers.first as? MedicationsDetailViewController {
@@ -66,4 +69,3 @@ class AddMedicationViewController: UIViewController {
 } //End of class
 
 
-// !numberOfDoses.isEmpty,
