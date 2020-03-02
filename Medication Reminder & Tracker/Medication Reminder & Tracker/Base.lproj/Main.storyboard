@@ -66,7 +66,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zJM-GX-8x0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1744.9275362318842" y="143.97321428571428"/>
+            <point key="canvasLocation" x="1699" y="144"/>
         </scene>
         <!--Themes View Controller-->
         <scene sceneID="53f-rB-hTK">
@@ -77,9 +77,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrI-JX-VPp">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem systemItem="cancel" id="Srf-kh-ZmO"/>
+                                    <barButtonItem systemItem="cancel" id="Srf-kh-ZmO">
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="e7N-bG-veJ" id="x1O-qc-4v9"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -94,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="umK-qz-IQx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2087" y="-685"/>
+            <point key="canvasLocation" x="2529" y="-230"/>
         </scene>
         <!--Add New Medication-->
         <scene sceneID="p1H-EX-iJu">
@@ -171,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5Y-Cc-DJm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2828" y="-685"/>
+            <point key="canvasLocation" x="3232" y="144"/>
         </scene>
         <!--Medication Details-->
         <scene sceneID="ERj-42-Nsv">
@@ -182,11 +186,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3O-6J-t9N">
-                                <rect key="frame" x="0.0" y="297" width="414" height="257"/>
+                                <rect key="frame" x="0.0" y="354" width="414" height="200"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="414" id="cHS-TJ-BK5"/>
+                                    <constraint firstAttribute="height" constant="200" id="p69-XI-0a2"/>
+                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                <dataDetectorType key="dataDetectorTypes" calendarEvent="YES"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="aBp-Tb-VV9">
                                 <rect key="frame" x="0.0" y="170" width="414" height="85"/>
@@ -207,6 +216,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="342.5" id="NzC-C6-xLm"/>
+                                            <constraint firstAttribute="height" constant="30" id="qg0-Yb-gfI"/>
+                                        </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oK9-td-1EO">
                                         <rect key="frame" x="141" y="55" width="132" height="30"/>
@@ -216,9 +229,13 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="414" id="EKR-AO-nn4"/>
+                                    <constraint firstAttribute="height" constant="85" id="af8-yF-QM5"/>
+                                </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwi-e5-eTL">
-                                <rect key="frame" x="181" y="265" width="52" height="24"/>
+                                <rect key="frame" x="181" y="265" width="52" height="81"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -279,13 +296,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dosesCounterLabel" destination="oF7-1y-cas" id="7Ln-Je-Oka"/>
+                        <outlet property="notesLabel" destination="iwi-e5-eTL" id="Mcy-ye-mRx"/>
                         <outlet property="notesTextView" destination="X3O-6J-t9N" id="1hN-XC-6LE"/>
                         <outlet property="tableView" destination="BYW-5H-MUU" id="nwF-pf-3Z8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gw2-jD-E7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2719" y="144"/>
+            <point key="canvasLocation" x="2530" y="663"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oQi-PS-ow9">
