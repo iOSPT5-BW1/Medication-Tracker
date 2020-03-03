@@ -1,25 +1,17 @@
 //
-//  AddMedicationViewController.swift
+//  AddNewMecationViewController.swift
 //  Medication Reminder & Tracker
 //
 //  Created by Rob Vance on 2/26/20.
 //  Copyright © 2020 Robs Creations. All rights reserved.
 //
-
 import UIKit
-
-protocol MedecationDelegate {
-    func medicationWasAdded(medication: Medication)
-}
 
 class AddMedicationViewController: UIViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateView()
-    }
+    //MARK: -Important properties-
+    
     var medicationController: MedicationController?
-    var medications: Medication?
     
     //MARK: -IBOutlets and IBActions-
     
@@ -31,41 +23,22 @@ class AddMedicationViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         guard let name = nameTextField.text, !name.isEmpty,
             let notes = notesTextView.text, !notes.isEmpty,
-            let numberOfDoses = numberOfDosesTextField.text, !numberOfDoses.isEmpty,
-            let medDoses = Int(numberOfDoses) else {
-                errorLabel.text = "Error Please Enter A Valid Number"
+            let numberOfDoses = numberOfDosesTextField.text, !numberOfDoses.isEmpty else {
+                errorLabel.textColor = .red
+                errorLabel.text = "Please enter medication details"
                 return
         }
-        errorLabel.text = String(medDoses)
-        
-        if let medications = medications {
-            medicationController?.updateMedication(medication: medications, name: name, numberOfDoses: medDoses, notes: notes)
-        } else {
-            // having issue with numberOfDoses of type int in a type string area
-            
-            medicationController?.createMedication(name: name, numberOfDoses: medDoses, notes: notes)
+        guard let dosesInt = Int(numberOfDoses),
+        dosesInt >= 0 else {
+            errorLabel.textColor = .red
+            errorLabel.text = "Please enter a valid number"
+            return
         }
-        if let parent = navigationController?.viewControllers.first as? MedicationsDetailViewController {
+        medicationController?.createMedication(name: name, numberOfDoses: String(dosesInt), notes: notes)
+        if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
         }
         navigationController?.popViewController(animated: true)
-    }
-    func updateView() {
-        guard let medications = medications else { return }
-        nameTextField.text =  medications.name
-        notesTextView.text = medications.notes
-//        numberOfDosesTextField.text = medications.numberOfDoses
-        
-    }
-    
-    
-    
-    
-    
-
-    //MARK: -Important properties-
-    var delegate: MedecationDelegate?
+    } // End of actions when the Save button is tapped
     
 } //End of class
-
-
