@@ -30,7 +30,7 @@ class MedicationsDetailViewController: UIViewController {
         medication?.numberOfDoses = String(dosesInt)
         dosesCounterLabel.text = String(dosesInt)
         medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
-        medicationController?.medications[cellIndex!.row].log?.append(Date())
+//        medicationController?.medications[cellIndex!.row].log?.append(Date())
         medicationController?.saveToPersistentStore()
     }
     
@@ -40,7 +40,7 @@ class MedicationsDetailViewController: UIViewController {
         medication?.numberOfDoses = String(dosesInt)
         dosesCounterLabel.text = String(dosesInt)
         medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
-        medicationController?.medications[cellIndex!.row].log?.append(Date())
+//        medicationController?.medications[cellIndex!.row].log?.append(Date())
         medicationController?.saveToPersistentStore()
     }
     
@@ -48,6 +48,7 @@ class MedicationsDetailViewController: UIViewController {
         guard let name = title, !name.isEmpty,
             let notes = notesTextView.text, !notes.isEmpty,
             let numberOfDoses = dosesCounterLabel.text, !numberOfDoses.isEmpty else {
+                notesLabel.textColor = .red
                 notesLabel.text = "Please enter medication details"
                 return
         }
@@ -81,6 +82,10 @@ class MedicationsDetailViewController: UIViewController {
         tableView.reloadData()
     }
     
+    
+    //MARK: -Important properties-
+    
+    let dateFormatter = DateFormatter()
     
     
 } //End of class

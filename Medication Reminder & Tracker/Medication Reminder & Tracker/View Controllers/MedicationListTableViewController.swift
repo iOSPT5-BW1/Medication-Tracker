@@ -17,8 +17,17 @@ class MedicationListTableViewController: UITableViewController {
     
     //MARK: -Important properties-
     
+    let themeHelper = ThemeHelper()
     var medicationController = MedicationController()
     
+    func setTheme() {
+        guard let theme = themeHelper.themePreference else {return}
+        if theme == "Dark" {
+            self.tableView.backgroundColor = .darkGray
+        } else if theme == "Green" {
+            self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        }
+    }
     
     // MARK: - Table view configuration -
     
