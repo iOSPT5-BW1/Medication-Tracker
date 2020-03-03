@@ -10,14 +10,24 @@ import UIKit
 
 class MedicationListTableViewController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     //MARK: -Important properties-
     
+    let themeHelper = ThemeHelper()
     var medicationController = MedicationController()
     
+    func setTheme() {
+        guard let theme = themeHelper.themePreference else {return}
+        if theme == "Dark" {
+            self.tableView.backgroundColor = .darkGray
+        } else if theme == "Green" {
+            self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        }
+    }
     
     // MARK: - Table view configuration -
     
@@ -37,8 +47,10 @@ class MedicationListTableViewController: UITableViewController {
             addMedVC.medicationController = medicationController
         } else if segue.identifier == "MedDetailSegue" {
             let medDetailVC = segue.destination as! MedicationsDetailViewController
+            let cellIndex = tableView.indexPathForSelectedRow
             medDetailVC.medicationController = medicationController
             medDetailVC.medication = medicationController.medications[tableView.indexPathForSelectedRow!.row]
+            medDetailVC.cellIndex = cellIndex
         }
     }
     

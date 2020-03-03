@@ -24,11 +24,13 @@ class AddMedicationViewController: UIViewController {
         guard let name = nameTextField.text, !name.isEmpty,
             let notes = notesTextView.text, !notes.isEmpty,
             let numberOfDoses = numberOfDosesTextField.text, !numberOfDoses.isEmpty else {
+                errorLabel.textColor = .red
                 errorLabel.text = "Please enter medication details"
                 return
         }
         guard let dosesInt = Int(numberOfDoses),
         dosesInt >= 0 else {
+            errorLabel.textColor = .red
             errorLabel.text = "Please enter a valid number"
             return
         }
