@@ -24,27 +24,26 @@ class MedicationsDetailViewController: UIViewController {
     @IBOutlet var notesTextView: UITextView!
     
     @IBAction func logDoseButtonTapped(_ sender: UIButton) {
-        guard var dosesInt = medication?.numberOfDoses,
+        guard var dosesInt = medication?.dosesRemaining,
             dosesInt != 0 else {
                 return
         }
         dosesInt -= 1
-        medication?.numberOfDoses = dosesInt
+        medication?.dosesRemaining = dosesInt
         dosesCounterLabel.text = "\(dosesInt)"
-        medicationController?.medications[cellIndex!.row].numberOfDoses = dosesInt
+        medicationController?.medications[cellIndex!.row].dosesRemaining = dosesInt
         medicationController?.medications[cellIndex!.row].log.append(Date())
         tableView.reloadData()
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         guard let name = title, !name.isEmpty,
-            let notes = notesTextView.text, !notes.isEmpty,
-            let numberOfDoses = dosesCounterLabel.text, !numberOfDoses.isEmpty else {
+            let notes = notesTextView.text, !notes.isEmpty else {
                 notesLabel.textColor = .red
                 notesLabel.text = "Please enter medication details"
                 return
         }
-        medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: Int(numberOfDoses)!, notes: notes)
+//        medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: Int(numberOfDoses)!, notes: notes)
         medicationController?.saveToPersistentStore()
         if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
@@ -105,11 +104,11 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            medication?.numberOfDoses -= 1
+            medication?.dosesRemaining += 1
             medication?.log.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
             updateViews()
-            print(medication?.log.count)
         }
     }
     

@@ -13,7 +13,7 @@ class MedicationController {
     var medications: [Medication] = []
     
     func createMedication(name: String, numberOfDoses: Int, notes: String) {
-        let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [])
+        let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [], dosesRemaining: numberOfDoses)
         medications.append(newMedication)
         saveToPersistentStore()
     }
