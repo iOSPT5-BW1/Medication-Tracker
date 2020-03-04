@@ -10,9 +10,9 @@ import UIKit
 
 struct Medication: Codable, Equatable {
     var name: String
-    var numberOfDoses: String
+    var numberOfDoses: Int
     var notes: String?
-    var log: [Date]?
+    var log: [Date]
     
 } //End of class
 
