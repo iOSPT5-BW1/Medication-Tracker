@@ -12,13 +12,13 @@ class MedicationController {
     
     var medications: [Medication] = []
     
-    func createMedication(name: String, numberOfDoses: String, notes: String) {
+    func createMedication(name: String, numberOfDoses: Int, notes: String) {
         let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [])
         medications.append(newMedication)
         saveToPersistentStore()
     }
     
-    func updateMedication(medication: Medication, name: String, numberOfDoses: String, notes: String) {
+    func updateMedication(medication: Medication, name: String, numberOfDoses: Int, notes: String) {
         guard let index = medications.firstIndex(of: medication) else {return}
         var medCopy = medication
         medCopy.name = name

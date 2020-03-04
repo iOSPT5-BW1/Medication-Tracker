@@ -23,25 +23,17 @@ class MedicationsDetailViewController: UIViewController {
     @IBOutlet var dosesCounterLabel: UILabel!
     @IBOutlet var notesTextView: UITextView!
     
-    @IBAction func subtractButtonTapped(_ sender: UIButton) {
-        guard var dosesInt = Int(medication!.numberOfDoses),
-            dosesInt != 0 else {return}
+    @IBAction func logDoseButtonTapped(_ sender: UIButton) {
+        guard var dosesInt = medication?.numberOfDoses,
+            dosesInt != 0 else {
+                return
+        }
         dosesInt -= 1
-        medication?.numberOfDoses = String(dosesInt)
-        dosesCounterLabel.text = String(dosesInt)
-        medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
-//        medicationController?.medications[cellIndex!.row].log?.append(Date())
-        medicationController?.saveToPersistentStore()
-    }
-    
-    @IBAction func addButtonTapped(_ sender: UIButton) {
-        guard var dosesInt = Int(medication!.numberOfDoses) else {return}
-        dosesInt += 1
-        medication?.numberOfDoses = String(dosesInt)
-        dosesCounterLabel.text = String(dosesInt)
-        medicationController?.medications[cellIndex!.row].numberOfDoses = String(dosesInt)
-//        medicationController?.medications[cellIndex!.row].log?.append(Date())
-        medicationController?.saveToPersistentStore()
+        medication?.numberOfDoses = dosesInt
+        dosesCounterLabel.text = "\(dosesInt)"
+        medicationController?.medications[cellIndex!.row].numberOfDoses = dosesInt
+        medicationController?.medications[cellIndex!.row].log.append(Date())
+        tableView.reloadData()
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
@@ -52,7 +44,7 @@ class MedicationsDetailViewController: UIViewController {
                 notesLabel.text = "Please enter medication details"
                 return
         }
-        medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: numberOfDoses, notes: notes)
+        medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: Int(numberOfDoses)!, notes: notes)
         medicationController?.saveToPersistentStore()
         if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
@@ -71,15 +63,19 @@ class MedicationsDetailViewController: UIViewController {
     //MARK: -Important Methods-
     
     func updateViews() {
-        notesTextView.text = medication?.notes
-        dosesCounterLabel.text = medication?.numberOfDoses
-        title = medication?.name
-        // TableViewSetup
-        tableView.numberOfRows(inSection: (medication?.log!.count)!)
-        tableView.dequeueReusableCell(withIdentifier: "LogCell")
-        
-        //TableViewSetup
+        guard let med = medication else {return}
+        notesTextView.text = med.notes
+        dosesCounterLabel.text = String(med.numberOfDoses)
+        title = med.name
+        formatDateFormatter()
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.reloadData()
+    }
+    
+    func formatDateFormatter() {
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
     }
     
     
@@ -87,5 +83,34 @@ class MedicationsDetailViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     
-    
 } //End of class
+
+
+
+extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        medication?.log.count ?? 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell") as! LogTableViewCell
+        
+        if let unwrappedLog = medication?.log {
+            let logStatement = "Dose was taken at: \(dateFormatter.string(from: unwrappedLog[indexPath.row]))"
+            cell.titleLabel.text = logStatement
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            medication?.numberOfDoses -= 1
+            medication?.log.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            updateViews()
+            print(medication?.log.count)
+        }
+    }
+    
+}
