@@ -51,6 +51,11 @@ class MedicationListTableViewController: UITableViewController {
             medDetailVC.medicationController = medicationController
             medDetailVC.medication = medicationController.medications[tableView.indexPathForSelectedRow!.row]
             medDetailVC.cellIndex = cellIndex
+        } else if segue.identifier == "ThemesSegue" {
+            if let selectThemeVC = segue.destination as? ThemeSelectionViewController {
+                selectThemeVC.themeHelper = self.themeHelper
+                selectThemeVC.modalPresentationStyle = .overCurrentContext
+            }
         }
     }
     
