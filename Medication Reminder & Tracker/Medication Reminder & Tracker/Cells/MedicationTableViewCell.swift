@@ -29,7 +29,7 @@ class MedicationTableViewCell: UITableViewCell {
     func updateViews() {
         guard let med = medication else {return}
         titleLabel.text = med.name
-        numberOfDosesLabel.text = String(med.numberOfDoses)
+        numberOfDosesLabel.text = String(med.dosesRemaining)
     }
     
 } //End of class

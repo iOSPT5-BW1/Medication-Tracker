@@ -13,6 +13,7 @@ class MedicationsDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
+        print(medication?.log.count ?? 100)
     }
     
     
@@ -37,13 +38,13 @@ class MedicationsDetailViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        guard let name = title, !name.isEmpty,
-            let notes = notesTextView.text, !notes.isEmpty else {
+        guard let notes = notesTextView.text, !notes.isEmpty,
+            let dosesInt = Int(dosesCounterLabel.text!) else {
                 notesLabel.textColor = .red
                 notesLabel.text = "Please enter medication details"
                 return
         }
-//        medicationController?.updateMedication(medication: medication!, name: name, numberOfDoses: Int(numberOfDoses)!, notes: notes)
+        medicationController?.updateMedication(medication: medication!, newDosesRemaining: dosesInt, newNotes: notes, newLog: medication!.log)
         medicationController?.saveToPersistentStore()
         if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
@@ -64,7 +65,7 @@ class MedicationsDetailViewController: UIViewController {
     func updateViews() {
         guard let med = medication else {return}
         notesTextView.text = med.notes
-        dosesCounterLabel.text = String(med.numberOfDoses)
+        dosesCounterLabel.text = String(med.dosesRemaining)
         title = med.name
         formatDateFormatter()
         tableView.delegate = self
@@ -105,11 +106,13 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             medication?.dosesRemaining += 1
-            medication?.log.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+            guard var medication = medication else {return}
+            medicationController?.deleteFromLog(for: medication, at: indexPath.row)
+            print(medication.log.count)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             updateViews()
         }
+        tableView.reloadData()
     }
     
 }

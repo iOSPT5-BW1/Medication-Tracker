@@ -12,18 +12,21 @@ class MedicationController {
     
     var medications: [Medication] = []
     
+    
+    //MARK: -Important methods-
+    
     func createMedication(name: String, numberOfDoses: Int, notes: String) {
         let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [], dosesRemaining: numberOfDoses)
         medications.append(newMedication)
         saveToPersistentStore()
     }
     
-    func updateMedication(medication: Medication, name: String, numberOfDoses: Int, notes: String) {
+    func updateMedication(medication: Medication, newDosesRemaining: Int, newNotes: String, newLog: [Date]) {
         guard let index = medications.firstIndex(of: medication) else {return}
         var medCopy = medication
-        medCopy.name = name
-        medCopy.numberOfDoses = numberOfDoses
-        medCopy.notes = notes
+        medCopy.dosesRemaining = newDosesRemaining
+        medCopy.notes = newNotes
+        medCopy.log = newLog
         medications.remove(at: index)
         medications.insert(medCopy, at: index)
         saveToPersistentStore()
@@ -35,6 +38,11 @@ class MedicationController {
         saveToPersistentStore()
     }
     
+    func deleteFromLog(for medication: Medication, at index: Int) {
+        guard let index = medications.firstIndex(of: medication) else {return}
+        medication.log.remove(at: index)
+        saveToPersistentStore()
+    }
     
     //MARK: -Encoding and Decoding Section-
     
