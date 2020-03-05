@@ -25,10 +25,7 @@ class MedicationsDetailViewController: UIViewController {
     @IBOutlet var notesTextView: UITextView!
     
     @IBAction func logDoseButtonTapped(_ sender: UIButton) {
-        guard var dosesInt = medication?.dosesRemaining,
-            dosesInt != 0 else {
-                return
-        }
+        guard var dosesInt = medication?.dosesRemaining, dosesInt != 0 else {return}
         dosesInt -= 1
         medication?.dosesRemaining = dosesInt
         dosesCounterLabel.text = "\(dosesInt)"
@@ -50,7 +47,7 @@ class MedicationsDetailViewController: UIViewController {
             parent.tableView.reloadData()
         }
         navigationController?.popViewController(animated: true)
-    } // End of actions when the Save button is tapped
+    }
     
     
     //MARK: -Important properties-
@@ -94,25 +91,21 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell") as! LogTableViewCell
-        
         if let unwrappedLog = medication?.log {
             let logStatement = "Dose was taken at: \(dateFormatter.string(from: unwrappedLog[indexPath.row]))"
             cell.titleLabel.text = logStatement
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            medication?.dosesRemaining += 1
             guard var medication = medication else {return}
-            medicationController?.deleteFromLog(for: medication, at: indexPath.row)
+            medication.dosesRemaining += 1
+            medicationController?.deleteFromLog(for: &medication, at: indexPath.row)
             print(medication.log.count)
             tableView.deleteRows(at: [indexPath], with: .fade)
             updateViews()
         }
-        tableView.reloadData()
     }
-    
 }

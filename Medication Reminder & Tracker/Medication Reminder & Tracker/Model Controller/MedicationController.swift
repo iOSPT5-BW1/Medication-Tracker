@@ -38,7 +38,7 @@ class MedicationController {
         saveToPersistentStore()
     }
     
-    func deleteFromLog(for medication: Medication, at index: Int) {
+    func deleteFromLog(for medication: inout Medication, at index: Int) {
         guard let index = medications.firstIndex(of: medication) else {return}
         medication.log.remove(at: index)
         saveToPersistentStore()
