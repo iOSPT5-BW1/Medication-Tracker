@@ -82,7 +82,7 @@
                                     <barButtonItem width="160" style="plain" systemItem="fixedSpace" id="jDj-Zp-IR1"/>
                                     <barButtonItem systemItem="cancel" id="Srf-kh-ZmO">
                                         <connections>
-                                            <action selector="cancelButtonTapped:" destination="e7N-bG-veJ" id="TIt-6b-Voo"/>
+                                            <action selector="cancelButtonTapped:" destination="e7N-bG-veJ" id="kYo-R1-asm"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -134,9 +134,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1UY-dT-jIm"/>
                     </view>
-                    <connections>
-                        <outlet property="cancelButtonTapped" destination="hrI-JX-VPp" id="wcC-b6-z4W"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="umK-qz-IQx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -266,28 +263,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="D2d-dB-K59">
-                                        <rect key="frame" x="162" y="55" width="90" height="30"/>
+                                        <rect key="frame" x="133.5" y="55" width="147" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGF-eS-Gco">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
                                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
-                                                <state key="normal" title="-">
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="29"/>
+                                                <state key="normal" title="Add a dose">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="subtractButtonTapped:" destination="yRn-PG-0pN" eventType="touchUpInside" id="gq3-Kb-Mox"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oK9-td-1EO">
-                                                <rect key="frame" x="60" y="0.0" width="30" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
-                                                <state key="normal" title="+">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="addButtonTapped:" destination="yRn-PG-0pN" eventType="touchUpInside" id="KIC-jV-bkr"/>
+                                                    <action selector="logDoseButtonTapped:" destination="yRn-PG-0pN" eventType="touchUpInside" id="gq3-Kb-Mox"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -318,7 +304,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8e6-Ba-zua">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8e6-Ba-zua">
                                                     <rect key="frame" x="20" y="0.0" width="374" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -361,6 +347,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doseButton" destination="RGF-eS-Gco" id="gnB-pk-GkB"/>
                         <outlet property="dosesCounterLabel" destination="oF7-1y-cas" id="7Ln-Je-Oka"/>
                         <outlet property="notesLabel" destination="iwi-e5-eTL" id="Mcy-ye-mRx"/>
                         <outlet property="notesTextView" destination="X3O-6J-t9N" id="1hN-XC-6LE"/>

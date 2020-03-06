@@ -34,7 +34,7 @@ class AddMedicationViewController: UIViewController {
             errorLabel.text = "Please enter a valid number"
             return
         }
-        medicationController?.createMedication(name: name, numberOfDoses: String(dosesInt), notes: notes)
+        medicationController?.createMedication(name: name, numberOfDoses: dosesInt, notes: notes)
         if let parent = navigationController?.viewControllers.first as? MedicationListTableViewController {
             parent.tableView.reloadData()
         }

@@ -11,19 +11,22 @@ import UIKit
 class MedicationController {
     
     var medications: [Medication] = []
+    var date: Date?
     
-    func createMedication(name: String, numberOfDoses: String, notes: String) {
-        let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [])
+    //MARK: -Important methods-
+    
+    func createMedication(name: String, numberOfDoses: Int, notes: String) {
+        let newMedication = Medication(name: name, numberOfDoses: numberOfDoses, notes: notes, log: [], dosesRemaining: numberOfDoses)
         medications.append(newMedication)
         saveToPersistentStore()
     }
     
-    func updateMedication(medication: Medication, name: String, numberOfDoses: String, notes: String) {
+    func updateMedication(medication: Medication, newDosesRemaining: Int, newNotes: String, newLog: [Date]) {
         guard let index = medications.firstIndex(of: medication) else {return}
         var medCopy = medication
-        medCopy.name = name
-        medCopy.numberOfDoses = numberOfDoses
-        medCopy.notes = notes
+        medCopy.dosesRemaining = newDosesRemaining
+        medCopy.notes = newNotes
+        medCopy.log = newLog
         medications.remove(at: index)
         medications.insert(medCopy, at: index)
         saveToPersistentStore()
@@ -35,6 +38,21 @@ class MedicationController {
         saveToPersistentStore()
     }
     
+    func deleteFromLog(for medication: Medication, at logIndex: Int) -> Medication {
+        guard let index = medications.firstIndex(of: medication) else { preconditionFailure("Should never get here") }
+        medications[index].log.remove(at: logIndex)
+        medications[index].dosesRemaining += 1
+        saveToPersistentStore()
+        return medications[index]
+    }
+    
+    func addToLog(for medication: Medication) -> Medication {
+        guard let index = medications.firstIndex(of: medication) else { preconditionFailure("Should never get here") }
+        medications[index].log.insert(Date(), at: 0)
+        medications[index].dosesRemaining -= 1
+        saveToPersistentStore()
+        return medications[index]
+    }
     
     //MARK: -Encoding and Decoding Section-
     
@@ -44,32 +62,66 @@ class MedicationController {
         return documents.appendingPathComponent("MedicationList.plist")
     }
     
+    var dateURL: URL? {
+        let fileManager = FileManager.default
+        guard let documents = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first else {return nil}
+        return documents.appendingPathComponent("datesList.plist")
+    }
+    
     func saveToPersistentStore() {
         let encoder = PropertyListEncoder()
-        guard let url = medicationListURL else {return}
+        guard let medURL = medicationListURL,
+        let dateURL = dateURL else {return}
         do {
             let data = try encoder.encode(medications)
-            try data.write(to: url)
+            let dateData = try encoder.encode(Date())
+            try data.write(to: medURL)
+            try dateData.write(to: dateURL)
         } catch {
             print("could not save meds, error code: \(error)")
         }
     }
     
     func loadFromPersistentStore() {
-        guard let url = medicationListURL else {return}
+        guard let medURL = medicationListURL,
+        let dateURL = dateURL else {return}
         do {
             let decoder = PropertyListDecoder()
-            let data = try Data(contentsOf: url)
-            let decodedMedications = try decoder.decode([Medication].self, from: data)
+            let medData = try Data(contentsOf: medURL)
+            let dateData = try Data(contentsOf: dateURL)
+            let decodedMedications = try decoder.decode([Medication].self, from: medData)
+            let decodedDate = try decoder.decode(Date.self, from: dateData)
             medications = decodedMedications
+            date = decodedDate
         } catch {
             print("could not load meds, error code: \(error)")
+        }
+    }
+    
+    func resetDoses() {
+        if Date() == date {
+            for med in medications {
+                var medCopy = med
+                medCopy.dosesRemaining = medCopy.numberOfDoses
+                print("this is the count of the med copy: \(medCopy.dosesRemaining)")
+                print("this is the count of the original med: \(med.dosesRemaining)")
+            }
         }
     }
     
     init() {
         loadFromPersistentStore()
     }
-    // MARK: -End of section-
+    
+    
+    // MARK: -Date formatter-
+    
+    let dateFormatter = DateFormatter()
+    
+    func formatTheFormatter() {
+        dateFormatter.dateFormat = "dd"
+    }
     
 } //End of class
+
+
