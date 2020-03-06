@@ -72,9 +72,10 @@ class MedicationController {
         let encoder = PropertyListEncoder()
         guard let medURL = medicationListURL,
         let dateURL = dateURL else {return}
+        let currentDate = Date()
         do {
             let data = try encoder.encode(medications)
-            let dateData = try encoder.encode(Date())
+            let dateData = try encoder.encode(currentDate)
             try data.write(to: medURL)
             try dateData.write(to: dateURL)
         } catch {
@@ -103,14 +104,13 @@ class MedicationController {
             for med in medications {
                 var medCopy = med
                 medCopy.dosesRemaining = medCopy.numberOfDoses
-                print("this is the count of the med copy: \(medCopy.dosesRemaining)")
-                print("this is the count of the original med: \(med.dosesRemaining)")
             }
         }
     }
     
     init() {
         loadFromPersistentStore()
+        resetDoses()
     }
     
     
@@ -123,5 +123,4 @@ class MedicationController {
     }
     
 } //End of class
-
 
