@@ -12,6 +12,7 @@ class MedicationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        setTheme()
         tableView.reloadData()
     }
     
@@ -53,8 +54,7 @@ class MedicationListTableViewController: UITableViewController {
             medDetailVC.cellIndex = cellIndex
         } else if segue.identifier == "ThemesSegue" {
             if let selectThemeVC = segue.destination as? ThemeSelectionViewController {
-                selectThemeVC.themeHelper = self.themeHelper
-                selectThemeVC.modalPresentationStyle = .overCurrentContext
+                selectThemeVC.themeHelper = themeHelper
             }
         }
     }

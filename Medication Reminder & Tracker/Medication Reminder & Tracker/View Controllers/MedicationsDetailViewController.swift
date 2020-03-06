@@ -13,7 +13,6 @@ class MedicationsDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
-        print(medication?.log.count ?? 100)
     }
     
     
@@ -23,15 +22,16 @@ class MedicationsDetailViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var dosesCounterLabel: UILabel!
     @IBOutlet var notesTextView: UITextView!
+    @IBOutlet var doseButton: UIButton!
     
     @IBAction func logDoseButtonTapped(_ sender: UIButton) {
-        guard var dosesInt = medication?.dosesRemaining, dosesInt != 0 else {return}
-        dosesInt -= 1
-        medication?.dosesRemaining = dosesInt
-        dosesCounterLabel.text = "\(dosesInt)"
-        medicationController?.medications[cellIndex!.row].dosesRemaining = dosesInt
-        medicationController?.medications[cellIndex!.row].log.append(Date())
-        tableView.reloadData()
+        guard let unwrappedMed = medication else {return}
+        guard unwrappedMed.dosesRemaining > 0 else {
+            // add an alert controller
+            return
+        }
+        let updatedMed = medicationController?.addToLog(for: unwrappedMed)
+        medication = updatedMed
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
@@ -53,13 +53,19 @@ class MedicationsDetailViewController: UIViewController {
     //MARK: -Important properties-
     
     var medicationController: MedicationController?
-    var medication: Medication?
+    var medication: Medication? {
+        didSet {
+            updateViews()
+        }
+    }
     var cellIndex: IndexPath?
+    var themeHelper: ThemeHelper?
     
     
     //MARK: -Important Methods-
     
     func updateViews() {
+        loadViewIfNeeded()
         guard let med = medication else {return}
         notesTextView.text = med.notes
         dosesCounterLabel.text = String(med.dosesRemaining)
@@ -67,12 +73,23 @@ class MedicationsDetailViewController: UIViewController {
         formatDateFormatter()
         tableView.delegate = self
         tableView.dataSource = self
+        doseButton.isEnabled = med.dosesRemaining > 0 ? true : false
+        setTheme()
         tableView.reloadData()
     }
     
     func formatDateFormatter() {
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
+    }
+    
+    func setTheme() {
+        guard let theme = themeHelper?.themePreference else {return}
+        if theme == "Dark" {
+            self.tableView.backgroundColor = .darkGray
+        } else if theme == "Green" {
+            self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        }
     }
     
     
@@ -100,12 +117,9 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard var medication = medication else {return}
-            medication.dosesRemaining += 1
-            medicationController?.deleteFromLog(for: &medication, at: indexPath.row)
-            print(medication.log.count)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            updateViews()
+            guard let unwrappedMedication = medication else {return}
+            let updatedMedication = medicationController?.deleteFromLog(for: unwrappedMedication, at: indexPath.row)
+            self.medication = updatedMedication
         }
     }
 }
