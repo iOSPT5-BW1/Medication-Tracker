@@ -38,7 +38,7 @@ class MedicationsDetailViewController: UIViewController {
         guard let notes = notesTextView.text, !notes.isEmpty,
             let dosesInt = Int(dosesCounterLabel.text!) else {
                 notesLabel.textColor = .red
-                notesLabel.text = "Please enter medication details"
+                notesLabel.text = "Please enter some notes"
                 return
         }
         medicationController?.updateMedication(medication: medication!, newDosesRemaining: dosesInt, newNotes: notes, newLog: medication!.log)
@@ -74,6 +74,7 @@ class MedicationsDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         doseButton.isEnabled = med.dosesRemaining > 0 ? true : false
+        doseButton.layer.cornerRadius = 15
         setTheme()
         tableView.reloadData()
     }

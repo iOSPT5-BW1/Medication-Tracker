@@ -10,8 +10,24 @@ import UIKit
 
 class MedicationController {
     
+    //MARK: -Important properties-
+    
     var medications: [Medication] = []
-    var date: Date?
+    let dateFormatter = DateFormatter()
+    let lastDateKey = "lastDateKey"
+    
+    var currentDate: String {
+        formatTheFormatter()
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    var medicationListURL: URL? {
+        let fileManager = FileManager.default
+        guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {return nil}
+        return documents.appendingPathComponent("MedicationList.plist")
+    }
     
     //MARK: -Important methods-
     
@@ -54,74 +70,51 @@ class MedicationController {
         return medications[index]
     }
     
+    func formatTheFormatter() {
+        dateFormatter.dateFormat = "dd"
+    }
+    
+    func resetDoses() {
+        guard currentDate != UserDefaults.standard.string(forKey: lastDateKey) else {return}
+        for med in medications {
+            var medCopy = med
+            medCopy.dosesRemaining = medCopy.numberOfDoses
+            medCopy.log = []
+            medications.remove(at: medications.firstIndex(of: med)!)
+            medications.insert(medCopy, at: 0)
+        }
+        UserDefaults.standard.set(currentDate, forKey: lastDateKey)
+    }
+    
+    init() {
+        loadFromPersistentStore()
+        resetDoses()
+    }
+    
     //MARK: -Encoding and Decoding Section-
-    
-    var medicationListURL: URL? {
-        let fileManager = FileManager.default
-        guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {return nil}
-        return documents.appendingPathComponent("MedicationList.plist")
-    }
-    
-    var dateURL: URL? {
-        let fileManager = FileManager.default
-        guard let documents = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first else {return nil}
-        return documents.appendingPathComponent("datesList.plist")
-    }
     
     func saveToPersistentStore() {
         let encoder = PropertyListEncoder()
-        guard let medURL = medicationListURL,
-        let dateURL = dateURL else {return}
+        guard let medURL = medicationListURL else {return}
         do {
             let data = try encoder.encode(medications)
-            let dateData = try encoder.encode(Date())
             try data.write(to: medURL)
-            try dateData.write(to: dateURL)
         } catch {
             print("could not save meds, error code: \(error)")
         }
     }
     
     func loadFromPersistentStore() {
-        guard let medURL = medicationListURL,
-        let dateURL = dateURL else {return}
+        let decoder = PropertyListDecoder()
+        guard let medURL = medicationListURL else {return}
         do {
-            let decoder = PropertyListDecoder()
             let medData = try Data(contentsOf: medURL)
-            let dateData = try Data(contentsOf: dateURL)
             let decodedMedications = try decoder.decode([Medication].self, from: medData)
-            let decodedDate = try decoder.decode(Date.self, from: dateData)
             medications = decodedMedications
-            date = decodedDate
         } catch {
             print("could not load meds, error code: \(error)")
         }
     }
     
-    func resetDoses() {
-        if Date() == date {
-            for med in medications {
-                var medCopy = med
-                medCopy.dosesRemaining = medCopy.numberOfDoses
-                print("this is the count of the med copy: \(medCopy.dosesRemaining)")
-                print("this is the count of the original med: \(med.dosesRemaining)")
-            }
-        }
-    }
-    
-    init() {
-        loadFromPersistentStore()
-    }
-    
-    
-    // MARK: -Date formatter-
-    
-    let dateFormatter = DateFormatter()
-    
-    func formatTheFormatter() {
-        dateFormatter.dateFormat = "dd"
-    }
-    
 } //End of class
-
 
