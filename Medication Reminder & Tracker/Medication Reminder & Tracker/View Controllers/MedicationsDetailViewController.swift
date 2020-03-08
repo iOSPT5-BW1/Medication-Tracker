@@ -13,6 +13,7 @@ class MedicationsDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
+        setTheme()
     }
     
     
@@ -52,6 +53,7 @@ class MedicationsDetailViewController: UIViewController {
     
     //MARK: -Important properties-
     
+    let dateFormatter = DateFormatter()
     var medicationController: MedicationController?
     var medication: Medication? {
         didSet {
@@ -75,8 +77,20 @@ class MedicationsDetailViewController: UIViewController {
         tableView.dataSource = self
         doseButton.isEnabled = med.dosesRemaining > 0 ? true : false
         doseButton.layer.cornerRadius = 15
+        dosesCounterLabel.layer.cornerRadius = 15
+        notesTextView.delegate = self as? UITextViewDelegate
+        configureDoneButton()
         setTheme()
         tableView.reloadData()
+    }
+    
+    func hideKeyboard() {
+        notesTextView.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
+        return true
     }
     
     func formatDateFormatter() {
@@ -88,15 +102,39 @@ class MedicationsDetailViewController: UIViewController {
         guard let theme = themeHelper?.themePreference else {return}
         if theme == "Dark" {
             self.tableView.backgroundColor = .darkGray
+            self.view.backgroundColor = .darkGray
+            notesTextView.backgroundColor = .darkGray
         } else if theme == "Green" {
             self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            self.view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        } else if theme == "Brown" {
+            self.tableView.backgroundColor = .brown
+            self.view.backgroundColor = .brown
+            notesTextView.backgroundColor = .brown
+        } else if theme == "Indigo" {
+            self.tableView.backgroundColor = .systemIndigo
+            self.view.backgroundColor = .systemIndigo
+            notesTextView.backgroundColor = .systemIndigo
+        } else if theme == "none" {
+            self.view.backgroundColor = .white
+            self.tableView.backgroundColor = .white
+            notesTextView.backgroundColor = .white
         }
     }
     
+    @objc func doneClicked() {
+        view.endEditing(true)
+    }
     
-    //MARK: -Important properties-
-    
-    let dateFormatter = DateFormatter()
+    func configureDoneButton() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneClicked))
+        toolbar.setItems([flexibleSpace, doneButton], animated: true)
+        notesTextView.inputAccessoryView = toolbar
+    }
     
 } //End of class
 
@@ -122,5 +160,19 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
             let updatedMedication = medicationController?.deleteFromLog(for: unwrappedMedication, at: indexPath.row)
             self.medication = updatedMedication
         }
+    }
+}
+
+extension UIViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
     }
 }

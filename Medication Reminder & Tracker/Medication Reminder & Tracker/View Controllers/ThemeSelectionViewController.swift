@@ -31,4 +31,19 @@ class ThemeSelectionViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @IBAction func IndigoButtonTapped(_ sender: UIButton) {
+        themeHelper?.setThemePreferenceToIndigo()
+        dismiss(animated: true)
+    }
+    
+    @IBAction func browbButtonTapped(_ sender: UIButton) {
+        themeHelper?.setThemePreferenceToBrown()
+        dismiss(animated: true)
+    }
+    
+    @IBAction func noneButtonTapped(_ sender: UIButton) {
+        themeHelper?.setThemePreferenceToDefault()
+        dismiss(animated: true)
+    }
+    
 }

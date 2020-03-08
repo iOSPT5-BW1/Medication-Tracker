@@ -9,9 +9,17 @@ import UIKit
 
 class AddMedicationViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureDoneButton()
+        setTheme()
+    }
+    
     //MARK: -Important properties-
     
+    var themeHelper: ThemeHelper?
     var medicationController: MedicationController?
+    
     
     //MARK: -IBOutlets and IBActions-
     
@@ -40,5 +48,40 @@ class AddMedicationViewController: UIViewController {
         }
         navigationController?.popViewController(animated: true)
     } // End of actions when the Save button is tapped
+    
+    @objc func doneClicked() {
+        view.endEditing(true)
+    }
+    
+    func configureDoneButton() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneClicked))
+        toolbar.setItems([flexibleSpace, doneButton], animated: true)
+        notesTextView.inputAccessoryView = toolbar
+        nameTextField.inputAccessoryView = toolbar
+        numberOfDosesTextField.inputAccessoryView = toolbar
+    }
+    
+    func setTheme() {
+        guard let theme = themeHelper?.themePreference else {return}
+        if theme == "Dark" {
+            self.view.backgroundColor = .darkGray
+            notesTextView.backgroundColor = .white
+        } else if theme == "Green" {
+            self.view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        } else if theme == "Brown" {
+            self.view.backgroundColor = .brown
+            notesTextView.backgroundColor = .brown
+        } else if theme == "Indigo" {
+            self.view.backgroundColor = .systemIndigo
+            notesTextView.backgroundColor = .systemIndigo
+        } else if theme == "none" {
+            self.view.backgroundColor = .white
+            notesTextView.backgroundColor = .white
+        }
+    }
     
 } //End of class

@@ -72,13 +72,6 @@
 			path = "Model Controller";
 			sourceTree = "<group>";
 		};
-		7B59112E24078134004E4B59 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		7B59112F2407813A004E4B59 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +105,6 @@
 				7B59112C24078126004E4B59 /* Model */,
 				7B59112D2407812E004E4B59 /* Model Controller */,
 				7B59112F2407813A004E4B59 /* Cells */,
-				7B59112E24078134004E4B59 /* Views */,
 				E402E92024076B0700C8C567 /* View Controllers */,
 				E402E90F2407611400C8C567 /* Main.storyboard */,
 				E402E9172407611600C8C567 /* Info.plist */,

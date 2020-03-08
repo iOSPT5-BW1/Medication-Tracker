@@ -12,7 +12,7 @@ class MedicationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        setTheme()
+        setTheme()
         tableView.reloadData()
     }
     
@@ -25,8 +25,19 @@ class MedicationListTableViewController: UITableViewController {
         guard let theme = themeHelper.themePreference else {return}
         if theme == "Dark" {
             self.tableView.backgroundColor = .darkGray
+            self.view.backgroundColor = .darkGray
         } else if theme == "Green" {
             self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            self.view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        } else if theme == "Brown" {
+            self.tableView.backgroundColor = .brown
+            self.view.backgroundColor = .brown
+        } else if theme == "Indigo" {
+            self.tableView.backgroundColor = .systemIndigo
+            self.view.backgroundColor = .systemIndigo
+        } else if theme == "none" {
+            self.view.backgroundColor = .white
+            self.tableView.backgroundColor = .white
         }
     }
     
@@ -46,12 +57,14 @@ class MedicationListTableViewController: UITableViewController {
         if segue.identifier == "AddMedSegue" {
             let addMedVC = segue.destination as! AddMedicationViewController
             addMedVC.medicationController = medicationController
+            addMedVC.themeHelper = themeHelper
         } else if segue.identifier == "MedDetailSegue" {
             let medDetailVC = segue.destination as! MedicationsDetailViewController
             let cellIndex = tableView.indexPathForSelectedRow
             medDetailVC.medicationController = medicationController
             medDetailVC.medication = medicationController.medications[tableView.indexPathForSelectedRow!.row]
             medDetailVC.cellIndex = cellIndex
+            medDetailVC.themeHelper = themeHelper
         } else if segue.identifier == "ThemesSegue" {
             if let selectThemeVC = segue.destination as? ThemeSelectionViewController {
                 selectThemeVC.themeHelper = themeHelper
