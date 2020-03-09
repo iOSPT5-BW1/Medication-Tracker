@@ -36,8 +36,8 @@ class MedicationListTableViewController: UITableViewController {
             self.tableView.backgroundColor = .systemIndigo
             self.view.backgroundColor = .systemIndigo
         } else if theme == "none" {
-            self.view.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
-            self.tableView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            self.view.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
+            self.tableView.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
         }
     }
     
@@ -60,7 +60,7 @@ class MedicationListTableViewController: UITableViewController {
         } else if theme == "Indigo" {
             cell.backgroundColor = .systemIndigo
         } else if theme == "none" {
-            cell.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
         }
         return cell
     }

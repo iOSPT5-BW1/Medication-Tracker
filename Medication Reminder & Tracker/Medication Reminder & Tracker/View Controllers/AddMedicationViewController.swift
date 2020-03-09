@@ -79,8 +79,8 @@ class AddMedicationViewController: UIViewController {
             self.view.backgroundColor = .systemIndigo
             notesTextView.backgroundColor = #colorLiteral(red: 0.4899598956, green: 0.5011133552, blue: 0.8346582055, alpha: 1)
         } else if theme == "none" {
-            self.view.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
-            notesTextView.backgroundColor = #colorLiteral(red: 0.5507847667, green: 0.9029123187, blue: 0.5694130063, alpha: 1)
+            self.view.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4119464755, green: 0.653599143, blue: 0.4092188478, alpha: 1)
         }
     }
     

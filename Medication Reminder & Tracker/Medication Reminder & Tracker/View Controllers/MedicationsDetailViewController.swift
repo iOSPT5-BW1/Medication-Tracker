@@ -102,23 +102,23 @@ class MedicationsDetailViewController: UIViewController {
         if theme == "Dark" {
             self.tableView.backgroundColor = .darkGray
             self.view.backgroundColor = .darkGray
-            notesTextView.backgroundColor = .darkGray
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4999483824, green: 0.50003618, blue: 0.4999368191, alpha: 1)
         } else if theme == "Green" {
             self.tableView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
             self.view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
-            notesTextView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.1508389711, green: 0.3108537793, blue: 0.3692007363, alpha: 1)
         } else if theme == "Brown" {
             self.tableView.backgroundColor = .brown
             self.view.backgroundColor = .brown
-            notesTextView.backgroundColor = .brown
+            notesTextView.backgroundColor = #colorLiteral(red: 0.5306609273, green: 0.4196858406, blue: 0.3109540045, alpha: 1)
         } else if theme == "Indigo" {
             self.tableView.backgroundColor = .systemIndigo
             self.view.backgroundColor = .systemIndigo
-            notesTextView.backgroundColor = .systemIndigo
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4899598956, green: 0.5011133552, blue: 0.8346582055, alpha: 1)
         } else if theme == "none" {
-            self.view.backgroundColor = .white
-            self.tableView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
-            notesTextView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            self.view.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
+            self.tableView.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4119464755, green: 0.653599143, blue: 0.4092188478, alpha: 1)
         }
     }
     
@@ -160,7 +160,7 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
         } else if theme == "Indigo" {
             cell.backgroundColor = .systemIndigo
         } else if theme == "none" {
-            cell.backgroundColor = .white
+            cell.backgroundColor = #colorLiteral(red: 0.04220625013, green: 0.6572204232, blue: 0.1162761524, alpha: 1)
         }
         return cell
     }
