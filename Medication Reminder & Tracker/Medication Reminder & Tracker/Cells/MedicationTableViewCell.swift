@@ -27,8 +27,9 @@ class MedicationTableViewCell: UITableViewCell {
     //MARK: -UpdateViews-
     
     func updateViews() {
-        titleLabel.text = medication?.name
-        numberOfDosesLabel.text = "\(String(describing: medication?.numberOfDoses))"
+        guard let med = medication else {return}
+        titleLabel.text = med.name
+        numberOfDosesLabel.text = String(med.dosesRemaining)
     }
     
 } //End of class
