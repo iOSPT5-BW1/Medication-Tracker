@@ -36,8 +36,8 @@ class MedicationListTableViewController: UITableViewController {
             self.tableView.backgroundColor = .systemIndigo
             self.view.backgroundColor = .systemIndigo
         } else if theme == "none" {
-            self.view.backgroundColor = .white
-            self.tableView.backgroundColor = .white
+            self.view.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            self.tableView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
         }
     }
     
@@ -49,7 +49,19 @@ class MedicationListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: .medicationCellIdentifier , for: indexPath) as! MedicationTableViewCell
+        let theme = themeHelper.themePreference
         cell.medication = medicationController.medications[indexPath.row]
+        if theme == "Dark" {
+            cell.backgroundColor = .darkGray
+        } else if theme == "Green" {
+            cell.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        } else if theme == "Brown" {
+            cell.backgroundColor = .brown
+        } else if theme == "Indigo" {
+            cell.backgroundColor = .systemIndigo
+        } else if theme == "none" {
+            cell.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+        }
         return cell
     }
     

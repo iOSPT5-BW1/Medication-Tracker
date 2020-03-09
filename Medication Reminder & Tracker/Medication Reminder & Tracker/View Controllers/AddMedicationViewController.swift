@@ -68,19 +68,19 @@ class AddMedicationViewController: UIViewController {
         guard let theme = themeHelper?.themePreference else {return}
         if theme == "Dark" {
             self.view.backgroundColor = .darkGray
-            notesTextView.backgroundColor = .white
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4999483824, green: 0.50003618, blue: 0.4999368191, alpha: 1)
         } else if theme == "Green" {
             self.view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
-            notesTextView.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.1508389711, green: 0.3108537793, blue: 0.3692007363, alpha: 1)
         } else if theme == "Brown" {
             self.view.backgroundColor = .brown
-            notesTextView.backgroundColor = .brown
+            notesTextView.backgroundColor = #colorLiteral(red: 0.5306609273, green: 0.4196858406, blue: 0.3109540045, alpha: 1)
         } else if theme == "Indigo" {
             self.view.backgroundColor = .systemIndigo
-            notesTextView.backgroundColor = .systemIndigo
+            notesTextView.backgroundColor = #colorLiteral(red: 0.4899598956, green: 0.5011133552, blue: 0.8346582055, alpha: 1)
         } else if theme == "none" {
-            self.view.backgroundColor = .white
-            notesTextView.backgroundColor = .white
+            self.view.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.5507847667, green: 0.9029123187, blue: 0.5694130063, alpha: 1)
         }
     }
     

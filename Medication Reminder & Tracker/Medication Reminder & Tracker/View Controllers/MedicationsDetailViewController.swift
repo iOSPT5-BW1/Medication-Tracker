@@ -77,7 +77,6 @@ class MedicationsDetailViewController: UIViewController {
         tableView.dataSource = self
         doseButton.isEnabled = med.dosesRemaining > 0 ? true : false
         doseButton.layer.cornerRadius = 15
-        dosesCounterLabel.layer.cornerRadius = 15
         notesTextView.delegate = self as? UITextViewDelegate
         configureDoneButton()
         setTheme()
@@ -118,8 +117,8 @@ class MedicationsDetailViewController: UIViewController {
             notesTextView.backgroundColor = .systemIndigo
         } else if theme == "none" {
             self.view.backgroundColor = .white
-            self.tableView.backgroundColor = .white
-            notesTextView.backgroundColor = .white
+            self.tableView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
+            notesTextView.backgroundColor = #colorLiteral(red: 0.01368087251, green: 0.9074349999, blue: 0.1599117815, alpha: 1)
         }
     }
     
@@ -147,9 +146,21 @@ extension MedicationsDetailViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell") as! LogTableViewCell
+        let theme = themeHelper?.themePreference
         if let unwrappedLog = medication?.log {
             let logStatement = "Dose was taken at: \(dateFormatter.string(from: unwrappedLog[indexPath.row]))"
             cell.titleLabel.text = logStatement
+        }
+        if theme == "Dark" {
+            cell.backgroundColor = .darkGray
+        } else if theme == "Green" {
+            cell.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        } else if theme == "Brown" {
+            cell.backgroundColor = .brown
+        } else if theme == "Indigo" {
+            cell.backgroundColor = .systemIndigo
+        } else if theme == "none" {
+            cell.backgroundColor = .white
         }
         return cell
     }
